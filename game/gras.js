@@ -1,12 +1,13 @@
 
-class Gras {
-    zeile;
-    spalte;
+class Gras extends livingCreature{
+    // zeile;
+    // spalte;
     energie = 0;
 
-    constructor(z,s) {
-        this.zeile = z;
-        this.spalte = s;
+    constructor(zeile, spalte) {
+        super(zeile, spalte);
+        // this.zeile = z;
+        // this.spalte = s;
     };
     platziereSelbstInMatrix() {
         matrix[this.zeile][this.spalte] = 1;
@@ -41,7 +42,7 @@ class Gras {
             [this.zeile,this.spalte-1],
         ]
         return benachbarteFelder.filter(this.istErde);
-    }
+    };
     istErde(koordinatenPaar) {
         let zeile = koordinatenPaar[0];
         let spalte = koordinatenPaar[1];
@@ -55,5 +56,5 @@ class Gras {
         }  else {
             return false;
         }
-    }
+    };
 }
