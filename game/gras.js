@@ -26,8 +26,7 @@ class Gras extends livingCreature{
     };
 
     pflanzNeuesGrasObjekt() {
-        // let erdeFelder = this.erstelleErdefelderTabelle(this.istErde); 
-        let erdeFelder = this.umgebung.filter(this.istFeld());
+        let erdeFelder = this.erstelleErdefelderTabelle(this.istErde); 
         if (erdeFelder.length > 0) {
             let gewähltesFeld = erdeFelder[0];
             let neuesGrasObjekt = new Gras(gewähltesFeld[0],gewähltesFeld[1]);
@@ -35,6 +34,10 @@ class Gras extends livingCreature{
             objekteListe.push(neuesGrasObjekt);
         }
     };
+
+    erstelleErdefelderTabelle() {
+        return this.umgebung.filter((koordinatenpaar) => this.istFeld(koordinatenpaar, 0));
+    }
 
     // erstelleErdefelderTabelle() {
     //     let benachbarteFelder = [
