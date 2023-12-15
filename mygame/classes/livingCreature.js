@@ -1,4 +1,4 @@
-class livingCreature {
+module.exports = class livingCreature {
 
     constructor(zeile, spalte) {
         this.zeile = zeile;

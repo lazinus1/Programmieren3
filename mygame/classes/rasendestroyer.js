@@ -1,5 +1,6 @@
- 
-class RasenDestroyer extends livingCreature{
+const livingCreature = require("./livingCreature.js")
+
+module.exports = class RasenDestroyer extends livingCreature{
     energie = 15;
     constructor(zeile, spalte) {
         super(zeile, spalte)

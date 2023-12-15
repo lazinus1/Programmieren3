@@ -1,5 +1,5 @@
-
-class Gras extends livingCreature{
+const livingCreature = require("./livingCreature.js");
+module.exports = class Gras extends livingCreature{
     // zeile;
     // spalte;
     energie = 0;

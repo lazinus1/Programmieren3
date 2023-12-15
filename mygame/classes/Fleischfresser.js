@@ -1,4 +1,5 @@
-class Fleischfresser extends livingCreature{
+const livingCreature = require("./livingCreature.js")
+module.exports = class Fleischfresser extends livingCreature{
     energie = 200;
 
     constructor(z,s) {
