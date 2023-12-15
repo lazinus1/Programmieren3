@@ -34,7 +34,7 @@ function draw() {
     }
     console.log(objekteListe.length);
     zeichneMatrix();
-   
+
 }
 
 

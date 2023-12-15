@@ -1,7 +1,3 @@
-function randomNumber(min,max) {
-    return Math.floor(Math.random() * (max- min)+min)
-}
-
 function erstelleMatrix() {
     let matrix = [];
     for (let zeile = 0; zeile < 50; zeile++) {
