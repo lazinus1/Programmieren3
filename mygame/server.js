@@ -9,6 +9,10 @@ const app = express();
 let server = require('http').Server(app);
 let io = require('socket.io')(server);
 
+let clients = [];
+let isGameRunning = false;
+let interValID;
+
 app.use(express.static('./client'));
 
 app.get('/', function(req, res){
@@ -28,15 +32,14 @@ io.on('connection', function(socket) {
     socket.emit('matrix', matrix);
 });
 
-function erstelleMatrix() {
+function erstelleMatrix(cols, rows) {
     let matrix = [];
-    for (let zeile = 0; zeile < 50; zeile++) {
-        let z = [];
-        for (let spalte = 0; spalte < 50; spalte++) {
-            z.push(0);
-        };
-        matrix.push(z);
-    };
+    for(let y = 0; y <= rows; y++){
+        matrix.push([]);
+        for(let x = 0; x <= cols; x++){
+            matrix[y][x] = Math.floor(Math.random() * 2);
+        }
+    }
     return matrix;
 };
 
@@ -48,7 +51,7 @@ matrix = [
     [1, 1, 0, 2, 0],
     [1, 1, 0, 2, 0],
     [1, 1, 0, 0, 0]
- ];
+];
 
 grassArr = [];
 grazerArr = [];
@@ -84,7 +87,7 @@ function addMoreCreatures(){
 
 function initGame(){
     console.log('init game....');
-    matrix = erstelleMatrix();
+    matrix = erstelleMatrix(50, 50);
     addMoreCreatures();
 
     // durch Matrix laufen und Lebewesen erstellen
@@ -102,6 +105,9 @@ function initGame(){
             } 
         }   
     }
+
+    console.log("Sende matrix zu clients");
+    io.sockets.emit('matrix', matrix);
 }
 
 function updateGame(){
@@ -117,4 +123,5 @@ function updateGame(){
 
     }
     //console.log(matrix);
+    io.sockets.emit('matrix', matrix);
 }
