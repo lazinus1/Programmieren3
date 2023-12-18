@@ -6,12 +6,21 @@ function main() {
 
     console.log("Hello World!");
 
+    let destroyerButton = document.getElementById("destroyerButton");
+
     function gotMatrix(data) {
-        console.log(data);
+        // console.log(data);
         matrix = data;
     }
 
-    socket.on('matirx', gotMatrix);
+    socket.on('matrix', gotMatrix);
+
+    function sendCommandDestroyer() {
+        console.log("Hello World!");
+        socket.socket.emit('createDestroyer');
+    }
+
+    destroyerButton.onclick = sendCommandDestroyer;
 }
 
 function setup(){
@@ -31,7 +40,7 @@ function draw() {
             } else {
                 fill("yellow");
             }
-            rect(side * 10,side * 10,10,10);
+            rect(zeile * 10,spalte * side,side,10);
         }
     }
 }

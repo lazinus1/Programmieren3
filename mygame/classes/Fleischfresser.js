@@ -1,4 +1,5 @@
 const livingCreature = require("./livingCreature.js")
+const gras = require('./gras.js')
 module.exports = class Fleischfresser extends livingCreature{
     energie = 200;
 
@@ -6,7 +7,6 @@ module.exports = class Fleischfresser extends livingCreature{
         super(z, s)
     };
     spielzug() {
-        console.log("ENERGIE",this.energie)
         if(this.energie > 300) {
             this.energie = 200;
             this.pflanzNeuesFleischfresserObject();
@@ -50,7 +50,7 @@ module.exports = class Fleischfresser extends livingCreature{
             } else {
                 let ausgesuchtesFeld = Math.floor(Math.random() * grasFelder.length)
                 let gewähltesFeld = grasFelder[ausgesuchtesFeld];
-               let neuesGrasObjekt = new Gras(this.zeile,this.spalte);
+                let neuesGrasObjekt = new gras(this.zeile,this.spalte);
                 neuesGrasObjekt.platziereSelbstInMatrix();
                 objekteListe.push(neuesGrasObjekt);
                 //console.log(gewähltesFeld.toString(),this.zeile,this.spalte);

@@ -19,17 +19,37 @@ app.get('/', function(req, res){
     res.redirect('index.html')
 })
 
-server.listen(3000, function () {
+server.listen(3000, function() {
     console.log("Der Server läuft auf port 3000...");
-    initGame();
-    setInterval(function(){
-        updateGame();
-    }, 1000);
-});
+    // initGame();
+    // setInterval(function(){
+    //     updateGame();
+    // }, 1000);
+    io.on('connection', function(socket) {
+        console.log('Client Connected');
+        clients.push(socket.id);
+        // socket.emit('matrix', matrix);
 
-io.on('connection', function(socket) {
-    console.log('Client Connected');
-    socket.emit('matrix', matrix);
+        if(clients.length == 1 && isGameRunning == false) {
+            console.log("Starte Spiel...");
+            initGame();
+            interValID = setInterval(updateGame, 1000);
+            isGameRunning = true;
+        }
+
+        socket.on('disconnect', function() {
+            console.log("client left...");
+            const foundIndex = clients.findIndex(id => id === socket.id);
+            if(foundIndex >= 0) {
+                clients.splice(foundIndex, 1);
+            }
+            if(clients.length === 0){
+                isGameRunning = false;
+                clearInterval(interValID);
+                console.log("Spiel gestoppt: keine Clients", clients.length);
+            }
+        })
+    });
 });
 
 function erstelleMatrix(cols, rows) {
@@ -53,26 +73,7 @@ matrix = [
     [1, 1, 0, 0, 0]
 ];
 
-grassArr = [];
-grazerArr = [];
-fleischfresserArr = [];
-
-objekteListe = [
-    new RasenDestroyer(10,10),
-    new Gras(11,10),
-    new Gras(12,10),
-    new Gras(13,10),
-    new Gras(9,10),
-    new Gras(8,10),
-    new Gras(7,10),
-    new Gras(10,11),
-    new Gras(10,12),
-    new Gras(10,13),
-    new Gras(10,9),
-    new Gras(10,8),
-    new Gras(10,7),
-    new Fleischfresser(10,8)
-];
+objekteListe = [];
 
 function addMoreCreatures(){
     for (let y = 0; y < matrix.length; y++) {
@@ -90,18 +91,22 @@ function initGame(){
     matrix = erstelleMatrix(50, 50);
     addMoreCreatures();
 
+    for (let i = 0; i < objekteListe.length; i++) {
+        objekteListe[i].platziereSelbstInMatrix();
+    }
+
     // durch Matrix laufen und Lebewesen erstellen
     for (let y = 0; y < matrix.length; y++) {
         for (let x = 0; x < matrix[y].length; x++) {
             if(matrix[y][x] == 1){
                 let grassObj = new Gras(x,y);
-                grassArr.push(grassObj);
+                objekteListe.push(grassObj);
             }else if(matrix[y][x] == 2){
                 let grazerObj = new RasenDestroyer(x,y);
-                grazerArr.push(grazerObj);
+                objekteListe.push(grazerObj);
             }else if(matrix[y][x] == 3){
                 let fleischfresserObj = new Fleischfresser(x,y);
-                fleischfresserArr.push(fleischfresserObj);
+                objekteListe.push(fleischfresserObj);
             } 
         }   
     }
@@ -112,16 +117,24 @@ function initGame(){
 
 function updateGame(){
     console.log("update game...");
-    for(let i = 0; i < grassArr.length; i++){
-        let grassObj = grassArr[i];
-        grassObj.spielzug();
+    // for(let i = 0; i < grassArr.length; i++){
+    //     let grassObj = grassArr[i];
+    //     grassObj.spielzug();
+    // }
+
+    // for(let i = 0; i < grazerArr.length; i++){
+    //     let grazerObj = grazerArr[i];
+    //     grazerObj.spielzug();
+
+    // }
+    for (let i = 0; i < objekteListe.length; i++) {
+        objekteListe[i].spielzug();
     }
 
-    for(let i = 0; i < grazerArr.length; i++){
-        let grazerObj = grazerArr[i];
-        grazerObj.spielzug();
+    io.on('createDestroyer', function() {
+        x = Math.floor(Math.random())
+    })
 
-    }
     //console.log(matrix);
     io.sockets.emit('matrix', matrix);
 }
