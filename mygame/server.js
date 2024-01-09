@@ -55,6 +55,7 @@ server.listen(3000, function() {
             matrix[x][y] = 3;
             let fleischfresserObj = new Fleischfresser(x,y);
             objekteListe.push(fleischfresserObj);
+            console.log("Hello World!");
         })
 
         socket.on('disconnect', function() {
