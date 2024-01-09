@@ -13,6 +13,8 @@ let clients = [];
 let isGameRunning = false;
 let interValID;
 
+objekteListe = [];
+
 app.use(express.static('./client'));
 
 app.get('/', function(req, res){
@@ -36,6 +38,24 @@ server.listen(3000, function() {
             interValID = setInterval(updateGame, 1000);
             isGameRunning = true;
         }
+
+        socket.on('createDestroyer', function() {
+            let x = Math.floor(Math.random() * (50 - 1 + 1) + 1);
+            let y = Math.floor(Math.random() * (50 - 1 + 1) + 1);
+    
+            matrix[x][y] = 2;
+            let rasendestroyerObj = new RasenDestroyer(x,y);
+            objekteListe.push(rasendestroyerObj);
+        })
+
+        socket.on('createFresser', function() {
+            let x = Math.floor(Math.random() * (50 - 1 + 1) + 1);
+            let y = Math.floor(Math.random() * (50 - 1 + 1) + 1);
+    
+            matrix[x][y] = 3;
+            let fleischfresserObj = new Fleischfresser(x,y);
+            objekteListe.push(fleischfresserObj);
+        })
 
         socket.on('disconnect', function() {
             console.log("client left...");
@@ -73,13 +93,11 @@ matrix = [
     [1, 1, 0, 0, 0]
 ];
 
-objekteListe = [];
-
 function addMoreCreatures(){
     for (let y = 0; y < matrix.length; y++) {
         for (let x = 0; x < matrix[y].length; x++) {
             if(y == x){
-                if(y % 2 == 0) matrix[y][x] = 3;
+                if(y % 4 == 0) matrix[y][x] = 3;
                 else matrix[y][x] =2;
             }
         }
@@ -116,7 +134,6 @@ function initGame(){
 }
 
 function updateGame(){
-    console.log("update game...");
     // for(let i = 0; i < grassArr.length; i++){
     //     let grassObj = grassArr[i];
     //     grassObj.spielzug();
@@ -130,10 +147,6 @@ function updateGame(){
     for (let i = 0; i < objekteListe.length; i++) {
         objekteListe[i].spielzug();
     }
-
-    io.on('createDestroyer', function() {
-        x = Math.floor(Math.random())
-    })
 
     //console.log(matrix);
     io.sockets.emit('matrix', matrix);

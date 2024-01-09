@@ -7,6 +7,7 @@ function main() {
     console.log("Hello World!");
 
     let destroyerButton = document.getElementById("destroyerButton");
+    let fleischfresserButton = document.getElementById("fleischfresserButton");
 
     function gotMatrix(data) {
         // console.log(data);
@@ -16,11 +17,16 @@ function main() {
     socket.on('matrix', gotMatrix);
 
     function sendCommandDestroyer() {
+        socket.emit('createDestroyer');
+    }
+
+    function sendCommandFresser() {
+        socket.emit('createFresser');
         console.log("Hello World!");
-        socket.socket.emit('createDestroyer');
     }
 
     destroyerButton.onclick = sendCommandDestroyer;
+    fleischfresserButton.onclick = sendCommandFresser
 }
 
 function setup(){
