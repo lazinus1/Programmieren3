@@ -1,5 +1,7 @@
 let matrix = [];
 let side = 10;
+let color = true;
+let counter = 1;
 
 function main() {
     const socket = io();
@@ -8,6 +10,7 @@ function main() {
 
     let destroyerButton = document.getElementById("destroyerButton");
     let fleischfresserButton = document.getElementById("fleischfresserButton");
+    let explosion = document.getElementById("explosion");
 
     function gotMatrix(data) {
         // console.log(data);
@@ -22,11 +25,16 @@ function main() {
 
     function sendCommandFresser() {
         socket.emit('createFresser');
+    }
+
+    function sendExplosion() {
+        socket.emit('createExplosion');
         console.log("Hello World!");
     }
 
     destroyerButton.onclick = sendCommandDestroyer;
-    fleischfresserButton.onclick = sendCommandFresser
+    fleischfresserButton.onclick = sendCommandFresser;
+    explosion.onclick = sendExplosion;
 }
 
 function setup(){
@@ -43,6 +51,22 @@ function draw() {
                 fill("black");
             } else if (matrix[zeile][spalte] === 3) {
                 fill("red");
+            } else if (matrix[zeile][spalte] === 4) {
+                if (color == true) {
+                    fill("yellow")
+                    counter++;
+                    if(counter > 9) {
+                        color = false;
+                        counter = 0;
+                    }
+                } else if (color == false) {
+                    fill("orange");
+                    counter++;
+                    if(counter > 9) {
+                        color = true;
+                        counter = 0;
+                    }
+                }
             } else {
                 fill("yellow");
             }

@@ -36,7 +36,7 @@ module.exports = class Gras extends livingCreature{
     };
     berechneUmgebung() {
         this.umgebung = [
-            [this.zeile - 1, this.y - 1],
+            [this.zeile - 1, this.spalte - 1],
             [this.zeile, this.spalte - 1],
             [this.zeile + 1, this.spalte + 1],
             [this.zeile - 1, this.spalte],

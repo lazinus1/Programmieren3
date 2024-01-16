@@ -1,6 +1,7 @@
 const Gras = require("./classes/gras.js");
 const RasenDestroyer = require("./classes/rasendestroyer.js");
 const Fleischfresser = require("./classes/Fleischfresser.js");
+const Explosion = require("./classes/explosion.js");
 
 
 const express = require("express");
@@ -55,7 +56,15 @@ server.listen(3000, function() {
             matrix[x][y] = 3;
             let fleischfresserObj = new Fleischfresser(x,y);
             objekteListe.push(fleischfresserObj);
-            console.log("Hello World!");
+        })
+
+        socket.on('createExplosion', function() {
+            let x = Math.floor(Math.random() * (50 - 1 + 1) + 1);
+            let y = Math.floor(Math.random() * (50 - 1 + 1) + 1);
+    
+            matrix[x][y] = 4;
+            let explosionObj = new Explosion(x,y);
+            objekteListe.push(explosionObj);
         })
 
         socket.on('disconnect', function() {
