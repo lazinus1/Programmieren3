@@ -5,11 +5,51 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Programmieren 3</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        button {
+            width: 10rem;
+            height: 3rem;
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+            margin-left: 0.5rem;
+        }
+        .container {
+            position: absolute;
+            left: 20%;
+            width: 15rem;
+            height: 11.5rem;
+            background: rgb(238, 238, 238);
+            text-align: center;
+        }
+        .container h3 {
+            top: 5px;
+            font-size: 20px;
+            font-weight: 400;
+        }
+        .container .selected-field {
+            background: gray;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 8rem;
+            height: 8rem;
+            bottom: 1rem;
+        }
+    </style>
 </head>
 <body>
     <button id="destroyerButton">Erstelle Rasen-Zerstörer</button>
     <button id="fleischfresserButton">Erstelle Fleischfresser</button>
     <button id="explosion">Erstelle Explosion</button>
+    <div class="container">
+        <h3 id="selected-field-text">Selected: None</h3>
+        <div id="selected-field" class="selected-field"></div>
+    </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.5.0/p5.min.js"></script>
     <script src="client.js"></script>
     <script src="/socket.io/socket.io.js"></script>

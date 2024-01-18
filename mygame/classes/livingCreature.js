@@ -5,7 +5,7 @@ module.exports = class livingCreature {
         this.spalte = spalte;
 
         this.umgebung = [
-            [this.zeile - 1, this.y - 1],
+            [this.zeile - 1, this.saplte - 1],
             [this.zeile, this.spalte - 1],
             [this.zeile + 1, this.spalte + 1],
             [this.zeile - 1, this.spalte],

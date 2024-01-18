@@ -14,6 +14,8 @@ let clients = [];
 let isGameRunning = false;
 let interValID;
 
+let selected;
+
 objekteListe = [];
 
 app.use(express.static('./client'));
@@ -41,30 +43,31 @@ server.listen(3000, function() {
         }
 
         socket.on('createDestroyer', function() {
-            let x = Math.floor(Math.random() * (50 - 1 + 1) + 1);
-            let y = Math.floor(Math.random() * (50 - 1 + 1) + 1);
-    
-            matrix[x][y] = 2;
-            let rasendestroyerObj = new RasenDestroyer(x,y);
-            objekteListe.push(rasendestroyerObj);
+            selected = 2;
         })
 
         socket.on('createFresser', function() {
-            let x = Math.floor(Math.random() * (50 - 1 + 1) + 1);
-            let y = Math.floor(Math.random() * (50 - 1 + 1) + 1);
-    
-            matrix[x][y] = 3;
-            let fleischfresserObj = new Fleischfresser(x,y);
-            objekteListe.push(fleischfresserObj);
+            selected = 3;
         })
 
         socket.on('createExplosion', function() {
-            let x = Math.floor(Math.random() * (50 - 1 + 1) + 1);
-            let y = Math.floor(Math.random() * (50 - 1 + 1) + 1);
-    
-            matrix[x][y] = 4;
-            let explosionObj = new Explosion(x,y);
-            objekteListe.push(explosionObj);
+            selected = 4;
+        })
+
+        socket.on('coordinations', function(x, y) {
+            if(selected == 2) {
+                matrix[x][y] = 2;
+                let rasendestroyerObj = new RasenDestroyer(x,y);
+                objekteListe.push(rasendestroyerObj);
+            } else if (selected == 3) {
+                matrix[x][y] = 3;
+                let rasenFresserObj = new Fleischfresser(x,y);
+                objekteListe.push(rasenFresserObj);
+            } else if (selected == 4) {
+                matrix[x][y] = 4;
+                let explosionObj = new Explosion(x,y);
+                objekteListe.push(explosionObj);
+            }
         })
 
         socket.on('disconnect', function() {
