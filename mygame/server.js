@@ -119,7 +119,7 @@ function addMoreCreatures(){
 
 function initGame(){
     console.log('init game....');
-    matrix = erstelleMatrix(50, 50);
+    matrix = erstelleMatrix(100, 100);
     addMoreCreatures();
 
     for (let i = 0; i < objekteListe.length; i++) {

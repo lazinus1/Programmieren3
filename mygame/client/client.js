@@ -1,5 +1,5 @@
 let matrix = [];
-let side = 10;
+let side = 5;
 let color = true;
 let counter = 1;
 let mysocket;
@@ -61,20 +61,20 @@ function main() {
 
 function mouseClicked() {
     console.log(mouseX, mouseY);
-    let fieldX = mouseX / 10;
-    let fieldY = mouseY / 10;
+    let fieldX = mouseX / 5;
+    let fieldY = mouseY / 5;
 
     let x = Math.floor(fieldX) + 1;
     let y = Math.floor(fieldY) + 1;
 
-    if (x < 51 && x > 0 && y < 51 && y > 0) {
+    if (x < 101 && x > 0 && y < 101 && y > 0) {
         mysocket.emit('coordinations', x, y);
     }
     console.log(x);
 }
 
 function setup(){
-    createCanvas(500, 500);
+    createCanvas(5000, 5000);
 }
 
 function draw() {
@@ -106,7 +106,7 @@ function draw() {
             } else {
                 fill("yellow");
             }
-            rect(zeile * 10,spalte * side,side,10);
+            rect(zeile * 5,spalte * side,side,5);
         }
     }
 }
