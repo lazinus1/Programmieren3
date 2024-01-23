@@ -33,8 +33,10 @@ module.exports = class Explosion extends livingCreature {
         this.berechneUmgebung();
         for(let i = 0; i < this.umgebung.length; i++) {
             let [row, col] = this.umgebung[i];
-            matrix[row][col] = 0;
-            this.loeschObject(row, col);
+            if(row < 101 && col < 101) {
+                matrix[row][col] = 0;
+                this.loeschObject(row, col);
+            }
         }
     }
 

@@ -14,7 +14,9 @@ let clients = [];
 let isGameRunning = false;
 let interValID;
 
-let selected;
+let selected = 0;
+
+let weatherID = 1;
 
 objekteListe = [];
 
@@ -34,6 +36,8 @@ server.listen(3000, function() {
         console.log('Client Connected');
         clients.push(socket.id);
         // socket.emit('matrix', matrix);
+        socket.emit('getWeather', weatherID);
+        socket.emit('getSelected', selected);
 
         if(clients.length == 1 && isGameRunning == false) {
             console.log("Starte Spiel...");
@@ -68,6 +72,11 @@ server.listen(3000, function() {
                 let explosionObj = new Explosion(x,y);
                 objekteListe.push(explosionObj);
             }
+        })
+
+        socket.on('weather', function(weather) {
+            weatherID = weather
+            changeWeather();
         })
 
         socket.on('disconnect', function() {
@@ -115,6 +124,18 @@ function addMoreCreatures(){
             }
         }
     }
+}
+
+function changeWeather() {
+    // if (weatherID == 1) {
+    //     //pass;
+    // } else if (weatherID == 2) {
+    //     //pass;
+    // } else if (weatherID == 3) {
+    //     //pass;
+    // } else if (weahterID == 4) {
+    //     //pass;
+    // }
 }
 
 function initGame(){
