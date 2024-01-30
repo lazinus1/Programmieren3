@@ -4,6 +4,11 @@ module.exports = class livingCreature {
         this.zeile = zeile;
         this.spalte = spalte;
 
+        let varFrueling = true;
+        let varSommer = false;
+        let varHerbst = false;
+        let varWinter = false;
+
         this.umgebung = [
             [this.zeile - 1, this.saplte - 1],
             [this.zeile, this.spalte - 1],

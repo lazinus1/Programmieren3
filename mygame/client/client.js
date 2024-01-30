@@ -25,7 +25,7 @@ let sommerFleischfresser = "red";
 let herbstFleischfresser = "#8B0000";
 let winterFleischfresser = "#1E90FF";
 
-let frühlingErder = "#CD853F";
+let frühlingErde = "#CD853F";
 let sommerErde = "yellow";
 let herbstErde = "#964B00";
 let winterErde = "F5F5F5";
@@ -86,7 +86,7 @@ function main() {
             grasFarbe = frühlingGras;
             grasfresserFarbe = frühlingGrasfresser;
             fleischfresserFarbe = frühlingFleischfresser;
-            erdeFarbe = frühlingErder;
+            erdeFarbe = frühlingErde;
 
         } else if (weatherID == 1) {
             weather.innerHTML = "Sommer";
@@ -126,7 +126,7 @@ function main() {
             grasFarbe = frühlingGras;
             grasfresserFarbe = frühlingGrasfresser;
             fleischfresserFarbe = frühlingFleischfresser;
-            erdeFarbe = frühlingErder;
+            erdeFarbe = frühlingErde;
 
         } else if (weatherID_ == 2) {
             weather.innerHTML = "Sommer";

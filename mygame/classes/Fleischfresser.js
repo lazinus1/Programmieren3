@@ -7,15 +7,39 @@ module.exports = class Fleischfresser extends livingCreature{
         super(z, s)
     };
     spielzug() {
-        if(this.energie > 300) {
-            this.energie = 200;
-            this.pflanzNeuesFleischfresserObject();
-        } else if (this.energie > 0) {
-            this.machSchrittNachVorne();
-            this.energie--;
+        if(this.varFrueling) {
+            if(this.energie > 250) {
+                this.energie = 200;
+                this.pflanzNeuesFleischfresserObject();
+            } else if (this.energie > 0) {
+                this.machSchrittNachVorne();
+                this.energie--;
+            } else {
+                matrix[this.zeile][this.spalte] = 0;
+                this.loeschObject(this.zeile,this.spalte);
+            }
+        } else if(this.varHerbst) {
+            if(this.energie > 400) {
+                this.energie = 200;
+                this.pflanzNeuesFleischfresserObject();
+            } else if (this.energie > 0) {
+                this.machSchrittNachVorne();
+                this.energie--;
+            } else {
+                matrix[this.zeile][this.spalte] = 0;
+                this.loeschObject(this.zeile,this.spalte);
+            }
         } else {
-            matrix[this.zeile][this.spalte] = 0;
-            this.loeschObject(this.zeile,this.spalte);
+            if(this.energie > 300) {
+                this.energie = 200;
+                this.pflanzNeuesFleischfresserObject();
+            } else if (this.energie > 0) {
+                this.machSchrittNachVorne();
+                this.energie--;
+            } else {
+                matrix[this.zeile][this.spalte] = 0;
+                this.loeschObject(this.zeile,this.spalte);
+            }
         }
         
     }
@@ -102,6 +126,28 @@ module.exports = class Fleischfresser extends livingCreature{
         this.berechneUmgebung();
         return this.umgebung.filter((koordinatenpaar) => this.istFeld(koordinatenpaar, 1));
     }
+
+    fruehling() {
+        this.varFrueling = true;
+        this.varHerbst = false;
+    }
+
+    sommer() {
+        this.varFrueling = false;
+        this.varHerbst = false;
+    }
+
+    herbst() {
+        this.varFrueling = false;
+        this.varHerbst = true;
+    }
+
+    winter() {
+        this.energie = this.energie / 2;
+        this.varFrueling = false;
+        this.varHerbst = false;
+    }
+
     // erstelleGrasfresserfelderTabelle() {
     //     let benachbarteFelder = [
     //         [this.zeile+1,this.spalte],

@@ -51,4 +51,20 @@ module.exports = class Explosion extends livingCreature {
         objekteListe.splice(index,1);
     }
 
+    fruehling() {
+        //frühling code
+    }
+
+    sommer() {
+        //sommer code
+    }
+
+    herbst() {
+        //herbst code
+    }
+
+    winter() {
+        //winter code
+    }
+
 }

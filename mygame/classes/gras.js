@@ -14,7 +14,14 @@ module.exports = class Gras extends livingCreature{
     };
 
     spielzug() {
-        if (this.energie > 4) {
+        if(this.varWinter == true) {
+            if (this.energie > 8) {
+                this.energie = 0;
+                // this.pflanzNeuesObjekt(1, this.istErde);
+                this.pflanzNeuesGrasObjekt();
+                // mach etwas
+            }
+        } else if (this.energie > 4) {
             this.energie = 0;
             // this.pflanzNeuesObjekt(1, this.istErde);
             this.pflanzNeuesGrasObjekt();
@@ -49,6 +56,22 @@ module.exports = class Gras extends livingCreature{
     erstelleErdefelderTabelle() {
         this.berechneUmgebung();
         return this.umgebung.filter((koordinatenpaar) => this.istFeld(koordinatenpaar, 0));
+    }
+
+    fruehling() {
+        this.varWinter = false;
+    }
+
+    sommer() {
+        this.varWinter = false;
+    }
+
+    herbst() {
+        this.varWinter = false;
+    }
+
+    winter() {
+        this.varWinter = true;
     }
 
     // erstelleErdefelderTabelle() {

@@ -127,16 +127,42 @@ function addMoreCreatures(){
 }
 
 function changeWeather() {
-    // if (weatherID == 1) {
-    //     //pass;
-    // } else if (weatherID == 2) {
-    //     //pass;
-    // } else if (weatherID == 3) {
-    //     //pass;
-    // } else if (weahterID == 4) {
-    //     //pass;
-    // }
+    if (weatherID == 1) {
+        for (let i = 0; i < objekteListe.length; i++) {
+            objekteListe[i].fruehling();
+        }
+    } else if (weatherID == 2) {
+        for (let i = 0; i < objekteListe.length; i++) {
+            objekteListe[i].sommer();
+        }
+    } else if (weatherID == 3) {
+        for (let i = 0; i < objekteListe.length; i++) {
+            objekteListe[i].herbst();
+        }
+    } else if (weatherID == 4) {
+        for (let i = 0; i < objekteListe.length; i++) {
+            objekteListe[i].winter();
+        }
+    }
 }
+
+function updateWeather() {
+    if(isGameRunning) {
+        if(weatherID == 1) {
+            weatherID++;
+        } else if(weatherID == 2) {
+            weatherID++
+        } else if(weatherID == 3) {
+            weatherID++
+        } else if(weatherID == 4) {
+            weatherID = 1;
+        }
+        changeWeather();
+        io.sockets.emit('getWeather', weatherID);
+    }
+}
+
+setInterval(updateWeather, 60000);
 
 function initGame(){
     console.log('init game....');

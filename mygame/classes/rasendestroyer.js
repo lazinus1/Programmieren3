@@ -6,19 +6,54 @@ module.exports = class RasenDestroyer extends livingCreature{
         super(zeile, spalte)
     }
     spielzug() {
-        if(this.energie > 30) {
-            this.energie = 15;
-            this.pflanzNeuesGrasfresserObject();
-        } else if (this.energie > 0) {
-            let grasFelder = this.erstelleGrasfelderTabelle();
-            if(grasFelder.length > 0) {
-                this.energie++;
+        if(this.varFrueling) {
+            if(this.energie > 20) {
+
+                this.energie = 15;
+                this.pflanzNeuesGrasfresserObject();
+            } else if (this.energie > 0) {
+                let grasFelder = this.erstelleGrasfelderTabelle();
+                if(grasFelder.length > 0) {
+                    this.energie++;
+                } else {
+                    this.energie--;
+                }
             } else {
-                this.energie--;
+                matrix[this.zeile][this.spalte] = 0;
+                this.loeschObject(this.zeile,this.spalte);
+            }
+        } else if (this.varHerbst) {
+            if(this.energie > 40) {
+
+                this.energie = 15;
+                this.pflanzNeuesGrasfresserObject();
+            } else if (this.energie > 0) {
+                let grasFelder = this.erstelleGrasfelderTabelle();
+                if(grasFelder.length > 0) {
+                    this.energie++;
+                } else {
+                    this.energie--;
+                }
+            } else {
+                matrix[this.zeile][this.spalte] = 0;
+                this.loeschObject(this.zeile,this.spalte);
             }
         } else {
-            matrix[this.zeile][this.spalte] = 0;
-            this.loeschObject(this.zeile,this.spalte);
+            if(this.energie > 30) {
+
+                this.energie = 15;
+                this.pflanzNeuesGrasfresserObject();
+            } else if (this.energie > 0) {
+                let grasFelder = this.erstelleGrasfelderTabelle();
+                if(grasFelder.length > 0) {
+                    this.energie++;
+                } else {
+                    this.energie--;
+                }
+            } else {
+                matrix[this.zeile][this.spalte] = 0;
+                this.loeschObject(this.zeile,this.spalte);
+            }
         }
         this.machSchrittNachVorne();
     }
@@ -76,6 +111,27 @@ module.exports = class RasenDestroyer extends livingCreature{
     erstelleGrasfelderTabelle() {
         this.berechneUmgebung();
         return this.umgebung.filter((koordinatenpaar) => this.istFeld(koordinatenpaar, 1));
+    }
+
+    fruehling() {
+        this.varFrueling = true;
+        this.varHerbst = false;
+    }
+
+    sommer() {
+        this.varFrueling = false;
+        this.varHerbst = false;
+    }
+
+    herbst() {
+        this.varFrueling = false;
+        this.varHerbst = true;
+    }
+
+    winter() {
+        this.energie = this.energie / 2;
+        this.varFrueling = false;
+        this.varHerbst = false;
     }
     // erstelleGrasfelderTabelle() {
     //     let benachbarteFelder = [
