@@ -21,14 +21,20 @@ module.exports = class Gras extends livingCreature{
                 this.pflanzNeuesGrasObjekt();
                 // mach etwas
             }
-        } else if (this.energie > 4) {
-            this.energie = 0;
-            // this.pflanzNeuesObjekt(1, this.istErde);
-            this.pflanzNeuesGrasObjekt();
-            // mach etwas
+            else {
+                // schlaf
+                this.energie++;
+            }
         } else {
-            // schlaf
-            this.energie++;
+            if (this.energie > 4) {
+                this.energie = 0;
+                // this.pflanzNeuesObjekt(1, this.istErde);
+                this.pflanzNeuesGrasObjekt();
+                // mach etwas
+            }   else {
+                // schlaf
+                this.energie++;
+            }
         }
     };
 

@@ -1,7 +1,5 @@
 # Programmieren3
 
-Hello World!
+Bitte ladet mein Abschlussprojekt für mich auf TUMO-World hoch
 
-# Übersicht
-
-Hello World!
+Das Abschlussproject ist im "mygame" ordner.

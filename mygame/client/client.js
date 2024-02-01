@@ -10,15 +10,15 @@ let grasfresserFarbe;
 let fleischfresserFarbe;
 let erdeFarbe;
 
-let frühlingGras = "#7FFF00";
+let frühlingGras = "#66cc00";
 let sommerGras = "green";
-let herbstGras = "#DAA520";
+let herbstGras = "#bf911b";
 let winterGras = "#FFFFFF";
 
-let frühlingGrasfresser = "#ADFF2F";
+let frühlingGrasfresser = "#2b2b2b";
 let sommerGrasfresser = "black";
-let herbstGrasfresser = "#8B4513";
-let winterGrasfresser = "#A9A9A9";
+let herbstGrasfresser = "#8a5a38";
+let winterGrasfresser = "#518c8b";
 
 let frühlingFleischfresser = "#8B4513";
 let sommerFleischfresser = "red";
@@ -27,8 +27,8 @@ let winterFleischfresser = "#1E90FF";
 
 let frühlingErde = "#CD853F";
 let sommerErde = "yellow";
-let herbstErde = "#964B00";
-let winterErde = "F5F5F5";
+let herbstErde = "#b05800";
+let winterErde = "#dbd9d9";
 
 function main() {
     const socket = io();

@@ -18,7 +18,7 @@ module.exports = class Fleischfresser extends livingCreature{
                 matrix[this.zeile][this.spalte] = 0;
                 this.loeschObject(this.zeile,this.spalte);
             }
-        } else if(this.varHerbst) {
+        } else if(this.varHerbst || this.varWinter) {
             if(this.energie > 400) {
                 this.energie = 200;
                 this.pflanzNeuesFleischfresserObject();
@@ -130,22 +130,26 @@ module.exports = class Fleischfresser extends livingCreature{
     fruehling() {
         this.varFrueling = true;
         this.varHerbst = false;
+        this.varWinter = false;
     }
 
     sommer() {
         this.varFrueling = false;
         this.varHerbst = false;
+        this.varWinter = false;
     }
 
     herbst() {
         this.varFrueling = false;
         this.varHerbst = true;
+        this.varWinter = false;
     }
 
     winter() {
         this.energie = this.energie / 2;
         this.varFrueling = false;
         this.varHerbst = false;
+        this.varWinter = true;
     }
 
     // erstelleGrasfresserfelderTabelle() {
